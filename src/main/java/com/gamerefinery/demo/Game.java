@@ -1,9 +1,12 @@
 package com.gamerefinery.demo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.bson.types.ObjectId;
 
 public class Game {
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
     private String name;
     private int rank;
