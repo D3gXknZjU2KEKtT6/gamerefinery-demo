@@ -147,7 +147,7 @@ public class TopGamesController {
         List<Document> history = getDocuments()
                 .find(and(eq("appId", id), eq("market", market)))
                 .first()
-                .get("history", ArrayList.class);
+                .get("history", List.class);
 
         // group the history entries by timestamps to time intervals
         Map<LocalDate, List<Integer>> ranks = history.stream()
@@ -163,7 +163,7 @@ public class TopGamesController {
         // statistics about the game rank within the time interval
         return ranks.entrySet().stream()
                 .map(entry -> new HistoryData(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.comparing(hd -> hd.getLocalDate()))
+                .sorted(Comparator.comparing(HistoryData::getLocalDate))
                 .collect(Collectors.toList());
     }
 
